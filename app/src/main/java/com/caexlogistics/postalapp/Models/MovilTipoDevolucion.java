@@ -1,0 +1,42 @@
+package com.caexlogistics.postalapp.Models;
+
+import io.realm.RealmObject;
+
+/**
+ * Created by Usuario on 4/06/2017.
+ */
+
+public class MovilTipoDevolucion extends RealmObject{
+
+    private int idTipoDevolucion;
+    private String descripcion;
+
+    public MovilTipoDevolucion() {
+    }
+
+    public MovilTipoDevolucion(int idTipoDevolucion, String descripcion) {
+        this.idTipoDevolucion = idTipoDevolucion;
+        this.descripcion = descripcion;
+    }
+
+    public int getIdTipoDevolucion() {
+        return idTipoDevolucion;
+    }
+
+    public void setIdTipoDevolucion(int idTipoDevolucion) {
+        this.idTipoDevolucion = idTipoDevolucion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return descripcion;
+    }
+}

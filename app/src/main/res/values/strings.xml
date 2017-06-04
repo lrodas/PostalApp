@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">PostalApp</string>
+
+    <!--String para login-->
+    <string name="strUsuario">Usuario:</string>
+    <string name="strContraseña">Contraseña:</string>
+    <string name="strIngresar">Iniciar sesión</string>
+    <string name="error_invalid_user_id" translatable="false">El usuario incorrecto</string>
+    <string name="error_incorrect_password" translatable="false">La contraseña es incorrecta</string>
+    <string name="error_field_required" translatable="false">Este campo es requerido</string>
+    <string name="error_server" translatable="false">Error en el servidor</string>
+    <string name="error_incorrect_user_id" translatable="false">El usuario no esta registrado</string>
+    <string name="error_network" translatable="false">Conexión de red no disponible</string>
+    <string name="error_invalid_password" translatable="false">Contraseña inválida</string>
+
+    <!--String para el menu principal-->
+
+    <string name="str_auto_despacho" translatable="false">Auto Despacho</string>
+    <string name="str_cuadre_correpondencia" translatable="false">Cuadre de Correpondencia</string>
+    <string name="str_entrega_correspondencia" translatable="false">Entrega de Correspondencia</string>
+    <string name="str_devolucion" translatable="false">Devolucion Masiva</string>
+    <string name="str_sincronizacion" translatable="false">Sincronizacion</string>
+    <string name="str_salir_aplicacion" translatable="false">Cerrar Sesion</string>
+    <string name="str_version" translatable="false">Version:</string>
+    <string name="str_usuario" translatable="false">Usuario:</string>
+
+    <!--Strings para el despacho-->
+    <string name="str_guia" translatable="false">Pieza</string>
+    <string name="str_titulo_despacho" translatable="false">Auto Despacho</string>
+    <string name="str_titulo_entrega" translatable="false">Auto Despacho</string>
+    <string name="str_total_piezas" translatable="false">Total Piezas Escaneadas:</string>
+    <string name="str_salir" translatable="false">Presione de nuevo para salir del auto despacho</string>
+
+    <!--String para item lista despacho-->
+    <string name="lbl_pieza" translatable="false">Pieza:</string>
+    <string name="lbl_fecha" translatable="false">Fecha despacho:</string>
+    <string name="lbl_tipo">Tipo:</string>
+    <string name="lbl_ciclo">Ciclo:</string>
+    <string name="lbl_nombre">Nombre:</string>
+    <string name="lbl_agencia">Agencia:</string>
+    <string name="lbl_direccion">Direccion:</string>
+
+    <string name="lbl_codCartero">Codigo Cartero:</string>
+    <string name="lbl_ruta">Ruta:</string>
+    <string name="lbl_devolucion">Tipo de Devolucion:</string>
+    <string name="str_titulo_devolucion">Devoluciones</string>
+    <string name="lbl_fechaDevolucion">Fecha Devolucion:</string>
+    <string name="lbl_tipo_devolucion">Tipo Devolucion:</string>
+
+</resources>

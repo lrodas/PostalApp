@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PostalApp</string>
+    <string name="strContraseña">Password:</string>
+    <string name="strUsuario">User:</string>
+    <string name="strIngresar">LOGIN</string>
+</resources>

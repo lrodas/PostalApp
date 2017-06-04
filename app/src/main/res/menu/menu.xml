@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_sincronizar"
+        android:title="@string/str_sincronizacion"
+        android:icon="@mipmap/ic_upload"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_item_auto_despacho"
+        android:title="@string/str_auto_despacho"/>
+    <item
+        android:id="@+id/menu_item_entrega"
+        android:title="@string/str_entrega_correspondencia"/>
+    <item
+        android:id="@+id/menu_item_devolucion"
+        android:title="@string/str_devolucion"/>
+
+    <item
+        android:id="@+id/menu_item_salir"
+        android:title="@string/str_salir_aplicacion"/>
+</menu>
