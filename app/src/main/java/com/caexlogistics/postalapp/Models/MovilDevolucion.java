@@ -13,15 +13,16 @@ import io.realm.annotations.PrimaryKey;
 
 public class MovilDevolucion extends RealmObject {
 
-    @PrimaryKey
-    private int transaccion;
     @Index
+    private int transaccion;
+    @PrimaryKey
     private String pieza;
     private MovilTipoDevolucion tipoDevolucion;
     private Date fechaDevolucion;
     @Index
     private String codigoCartero;
     private String ruta;
+    private boolean sincronizada;
 
     public MovilDevolucion() {
     }
@@ -33,6 +34,14 @@ public class MovilDevolucion extends RealmObject {
         this.fechaDevolucion = fechaDevolucion;
         this.codigoCartero = codigoCartero;
         this.ruta = ruta;
+    }
+
+    public boolean isSincronizada() {
+        return sincronizada;
+    }
+
+    public void setSincronizada(boolean sincronizada) {
+        this.sincronizada = sincronizada;
     }
 
     public int getTransaccion() {

@@ -1,6 +1,7 @@
 package com.caexlogistics.postalapp.app;
 
 import com.caexlogistics.postalapp.Models.MovilDespachos;
+import com.caexlogistics.postalapp.Models.MovilDevolucion;
 import com.caexlogistics.postalapp.Models.MovilEntrega;
 import com.caexlogistics.postalapp.Preferencias.SessionPrefs;
 
@@ -39,6 +40,15 @@ public class realmQuerys {
         RealmResults<MovilEntrega> lista = realm.where(MovilEntrega.class)
                 .equalTo("codigoCartero", usuario)
                 .findAll();
+        return lista;
+    }
+
+    public static List<MovilDevolucion> obtenerPiezasDevolucion(String usuario){
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<MovilDevolucion> lista = realm.where(MovilDevolucion.class)
+                .equalTo("codigoCartero", usuario)
+                .findAll();
+        realm.close();
         return lista;
     }
 
@@ -102,6 +112,26 @@ public class realmQuerys {
 
         }
         return movilEntrega;
+    }
+
+    public static MovilDevolucion actualizarDevolucion(String pieza, String codCartero){
+
+        Realm realm = Realm.getDefaultInstance();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        MovilDevolucion movilDevolucion = realm.where(MovilDevolucion.class).equalTo("pieza", pieza).equalTo("codigoCartero", codCartero).findFirst();
+
+        if (movilDevolucion != null) {
+
+            realm.beginTransaction();
+
+            movilDevolucion.setFechaDevolucion(new Date());
+
+            realm.commitTransaction();
+
+        }
+        return movilDevolucion;
     }
 
     public static void insertarMovilDespacho(MovilDespachos movilDespacho){

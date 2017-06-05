@@ -1,6 +1,7 @@
 package com.caexlogistics.postalapp.Models;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Usuario on 4/06/2017.
@@ -8,6 +9,7 @@ import io.realm.RealmObject;
 
 public class MovilTipoDevolucion extends RealmObject{
 
+    @PrimaryKey
     private int idTipoDevolucion;
     private String descripcion;
 

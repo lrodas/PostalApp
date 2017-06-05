@@ -104,11 +104,14 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                     showMenuError(error);
                     return;
                 }else{
+
                     List<MovilTipoDevolucion> lista = response.body();
                     realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    realm.copyToRealmOrUpdate(lista);
-                    realm.commitTransaction();
+                    for(MovilTipoDevolucion tipoDevolucion : lista) {
+                        realm.beginTransaction();
+                        realm.copyToRealmOrUpdate(tipoDevolucion);
+                        realm.commitTransaction();
+                    }
                 }
             }
 
@@ -118,6 +121,8 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void showMenuError(String error) {
         Toast.makeText(MenuPrincipalActivity.this, error, Toast.LENGTH_LONG).show();
@@ -167,7 +172,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuPrincipalActivity.this, EntregaActivity.class));
                 return true;
             case R.id.menu_item_devolucion:
-
+                startActivity(new Intent(MenuPrincipalActivity.this, DevolucionActivity.class));
                 return true;
             case R.id.menu_item_sincronizar:
 
