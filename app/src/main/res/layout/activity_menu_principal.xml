@@ -62,6 +62,15 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/menu_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:theme="@style/WhiteProgress"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/imgFondo"
         android:layout_width="match_parent"

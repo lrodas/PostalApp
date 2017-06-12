@@ -1,7 +1,5 @@
 package com.caexlogistics.postalapp.Models;
 
-import android.support.annotation.Nullable;
-
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -14,58 +12,24 @@ import io.realm.annotations.PrimaryKey;
 
 public class MovilDespachos extends RealmObject {
 
-    private int transaccion;
-    private String ciclo;
     @PrimaryKey
     private String pieza;
-    private String tipo;
-    private String nombre;
-    private String direccion;
-    private String codigoAgencia;
     @Index
     private String codigoCartero;
-    private String codRuta;
+    private String ruta;
     @Index
     private Date fechaDespacho;
-    private Date fechaEscaneo;
-    private String despacho_tipo;
-    private boolean escaneada;
     private boolean sincronizada;
 
     public MovilDespachos() {
     }
 
-    public MovilDespachos(int transaccion, String ciclo, String pieza, String tipo, String nombre, String direccion, String codigoAgencia, String codigoCartero, String codRuta, Date fechaDespacho, Date fechaEscaneo, String despacho_tipo, boolean escaneada, boolean sincronizada) {
-        this.transaccion = transaccion;
-        this.ciclo = ciclo;
+    public MovilDespachos(String pieza, String codigoCartero, String ruta, Date fechaDespacho, boolean sincronizada) {
         this.pieza = pieza;
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.codigoAgencia = codigoAgencia;
         this.codigoCartero = codigoCartero;
-        this.codRuta = codRuta;
+        this.ruta = ruta;
         this.fechaDespacho = fechaDespacho;
-        this.fechaEscaneo = fechaEscaneo;
-        this.despacho_tipo = despacho_tipo;
-        this.escaneada = escaneada;
         this.sincronizada = sincronizada;
-    }
-
-    public int getTransaccion() {
-        return transaccion;
-    }
-
-    public void setTransaccion(int transaccion) {
-        this.transaccion = transaccion;
-    }
-
-    public String getCiclo() {
-        return ciclo;
-    }
-
-    public void setCiclo(String ciclo) {
-        this.ciclo = ciclo;
     }
 
     public String getPieza() {
@@ -76,36 +40,8 @@ public class MovilDespachos extends RealmObject {
         this.pieza = pieza;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getCodigoAgencia() {
-        return codigoAgencia;
-    }
-
-    public void setCodigoAgencia(String codigoAgencia) {
-        this.codigoAgencia = codigoAgencia;
+    public boolean isSincronizada() {
+        return sincronizada;
     }
 
     public String getCodigoCartero() {
@@ -116,12 +52,12 @@ public class MovilDespachos extends RealmObject {
         this.codigoCartero = codigoCartero;
     }
 
-    public String getCodRuta() {
-        return codRuta;
+    public String getRuta() {
+        return ruta;
     }
 
-    public void setCodRuta(String codRuta) {
-        this.codRuta = codRuta;
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 
     public Date getFechaDespacho() {
@@ -130,34 +66,6 @@ public class MovilDespachos extends RealmObject {
 
     public void setFechaDespacho(Date fechaDespacho) {
         this.fechaDespacho = fechaDespacho;
-    }
-
-    public Date getFechaEscaneo() {
-        return fechaEscaneo;
-    }
-
-    public void setFechaEscaneo(Date fechaEscaneo) {
-        this.fechaEscaneo = fechaEscaneo;
-    }
-
-    public String getDespacho_tipo() {
-        return despacho_tipo;
-    }
-
-    public void setDespacho_tipo(String despacho_tipo) {
-        this.despacho_tipo = despacho_tipo;
-    }
-
-    public boolean isEscaneada() {
-        return escaneada;
-    }
-
-    public void setEscaneada(boolean escaneada) {
-        this.escaneada = escaneada;
-    }
-
-    public boolean isSincronizada() {
-        return sincronizada;
     }
 
     public void setSincronizada(boolean sincronizada) {

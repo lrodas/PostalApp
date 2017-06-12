@@ -13,8 +13,6 @@ import io.realm.annotations.PrimaryKey;
 
 public class MovilDevolucion extends RealmObject {
 
-    @Index
-    private int transaccion;
     @PrimaryKey
     private String pieza;
     private MovilTipoDevolucion tipoDevolucion;
@@ -27,8 +25,7 @@ public class MovilDevolucion extends RealmObject {
     public MovilDevolucion() {
     }
 
-    public MovilDevolucion(int transaccion, String pieza, MovilTipoDevolucion tipoDevolucion, Date fechaDevolucion, String codigoCartero, String ruta) {
-        this.transaccion = transaccion;
+    public MovilDevolucion(String pieza, MovilTipoDevolucion tipoDevolucion, Date fechaDevolucion, String codigoCartero, String ruta) {
         this.pieza = pieza;
         this.tipoDevolucion = tipoDevolucion;
         this.fechaDevolucion = fechaDevolucion;
@@ -42,14 +39,6 @@ public class MovilDevolucion extends RealmObject {
 
     public void setSincronizada(boolean sincronizada) {
         this.sincronizada = sincronizada;
-    }
-
-    public int getTransaccion() {
-        return transaccion;
-    }
-
-    public void setTransaccion(int transaccion) {
-        this.transaccion = transaccion;
     }
 
     public String getPieza() {
@@ -95,7 +84,6 @@ public class MovilDevolucion extends RealmObject {
     @Override
     public String toString() {
         return "MovilDevolucion{" +
-                "transaccion=" + transaccion +
                 ", pieza='" + pieza + '\'' +
                 ", tipoDevolucion=" + tipoDevolucion +
                 ", fechaDevolucion=" + fechaDevolucion +

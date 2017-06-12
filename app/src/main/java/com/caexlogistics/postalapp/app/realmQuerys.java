@@ -52,14 +52,37 @@ public class realmQuerys {
         return lista;
     }
 
-    public long obtenerPiezasEscaneadasNoSincronizadas(String usuario){
-        long conteo = 0;
-        obtenerInstancia();
-        conteo = realm.where(MovilDespachos.class)
+    public static RealmResults<MovilDespachos> obtenerPiezasDespachoNoSincronizadas(String usuario){
+        RealmResults<MovilDespachos> results;
+        Realm realm = Realm.getDefaultInstance();
+
+        results = realm.where(MovilDespachos.class)
                 .equalTo("sincronizada", false)
                 .equalTo("codigoCartero", usuario)
-                .count();
-        return conteo;
+                .findAll();
+        return results;
+    }
+
+    public static RealmResults<MovilEntrega> obtenerPiezasEntregaNoSincronizadas(String usuario){
+        RealmResults<MovilEntrega> results;
+        Realm realm = Realm.getDefaultInstance();
+
+        results = realm.where(MovilEntrega.class)
+                .equalTo("sincronizada", false)
+                .equalTo("codigoCartero", usuario)
+                .findAll();
+        return results;
+    }
+
+    public static RealmResults<MovilDevolucion> obtenerPiezasDevolucionNoSincronizadas(String usuario){
+        RealmResults<MovilDevolucion> results;
+        Realm realm = Realm.getDefaultInstance();
+
+        results = realm.where(MovilDevolucion.class)
+                .equalTo("sincronizada", false)
+                .equalTo("codigoCartero", usuario)
+                .findAll();
+        return results;
     }
 
     public long obtenerPiezasEscaneadasSincronizadas(String usuario){
@@ -85,8 +108,7 @@ public class realmQuerys {
 
             realm.beginTransaction();
 
-            movilDespachos.setFechaEscaneo(new Date());
-            movilDespachos.setEscaneada(true);
+            movilDespachos.setFechaDespacho(new Date());
 
             realm.commitTransaction();
 

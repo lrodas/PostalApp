@@ -6,19 +6,26 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.caexlogistics.postalapp.AsincTasks.PostalApi;
 import com.caexlogistics.postalapp.Models.ApiError;
+import com.caexlogistics.postalapp.Models.MovilDespachos;
+import com.caexlogistics.postalapp.Models.MovilDevolucion;
+import com.caexlogistics.postalapp.Models.MovilEntrega;
 import com.caexlogistics.postalapp.Models.MovilTipoDevolucion;
+import com.caexlogistics.postalapp.Models.Respuesta;
 import com.caexlogistics.postalapp.Preferencias.SessionPrefs;
 import com.caexlogistics.postalapp.R;
+import com.caexlogistics.postalapp.app.realmQuerys;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -26,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +53,9 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     private PostalApi postalApi;
     private Retrofit mRestAdapter;
     private Realm realm;
+    private View mProgressView;
+
+    private final int ESTADO_CREACION_EXITOSA = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +107,10 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                             response.errorBody().contentType().subtype().equals("json")){
                         ApiError apiError = ApiError.fromResponseBody(response.errorBody());
                         error = apiError.getMessage();
-                        Log.d("LoginActivity", apiError.getMessage());
+                        Log.d("MenuPrincipalActivity", apiError.getMessage());
                     }else{
                         error = response.message();
-                        Log.e("LoginActivity", response.message());
+                        Log.e("MenuPrincipalActivity", response.message());
                     }
                     showMenuError(error);
                     return;
@@ -117,12 +128,144 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<MovilTipoDevolucion>> call, Throwable t) {
-
+                Log.e("MenuPrincipalActivity", t.getMessage());
             }
         });
     }
 
+    private void sincronizarCorrespondencia(){
+        showProgress(true);
 
+        final RealmResults<MovilDespachos> realmdespachos = realmQuerys.obtenerPiezasDespachoNoSincronizadas(SessionPrefs.get(this).mPrefs.getString(SessionPrefs.PREF_USUARIO_LOGIN, "Sin Usuario"));
+        List<MovilDespachos> despachos = realmdespachos;
+
+
+        Call<Respuesta> sincronizarDespachos = postalApi.guardarDespachos(despachos);
+        sincronizarDespachos.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+
+                if(!response.isSuccessful()) {
+                    String error;
+                    if (response.errorBody().contentType().subtype().equals("application/json") ||
+                            response.errorBody().contentType().subtype().equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                        error = apiError.getMessage();
+                        Log.d("MenuPrincipalActivity", apiError.getMessage());
+                    } else {
+                        error = response.message();
+                        Log.e("MenuPrincipalActivity", response.message());
+                    }
+                    showMenuError(error);
+                    return;
+                }else{
+                    Respuesta respuesta = response.body();
+                    if(respuesta.getStatus() == ESTADO_CREACION_EXITOSA){
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        realmdespachos.deleteAllFromRealm();
+                        realm.commitTransaction();
+                        realm.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                showMenuError(t.getMessage());
+                Log.e("LoginActivity", t.getMessage());
+                return;
+            }
+        });
+
+        final RealmResults<MovilEntrega> entregaList = realmQuerys.obtenerPiezasEntregaNoSincronizadas(SessionPrefs.get(this).mPrefs.getString(SessionPrefs.PREF_USUARIO_LOGIN, "Sin Usuario"));
+        List<MovilEntrega> entregas = entregaList;
+
+        Call<Respuesta> sincronizarEntregas = postalApi.guardarEntregas(entregas);
+        sincronizarEntregas.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+
+                if(!response.isSuccessful()) {
+                    String error;
+                    if (response.errorBody().contentType().subtype().equals("application/json") ||
+                            response.errorBody().contentType().subtype().equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                        error = apiError.getMessage();
+                        Log.d("MenuPrincipalActivity", apiError.getMessage());
+                    } else {
+                        error = response.message();
+                        Log.e("MenuPrincipalActivity", response.message());
+                    }
+                    showMenuError(error);
+                    return;
+                }else{
+                    Respuesta respuesta = response.body();
+                    if(respuesta.getStatus() == ESTADO_CREACION_EXITOSA){
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        entregaList.deleteAllFromRealm();
+                        realm.commitTransaction();
+                        realm.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                showMenuError(t.getMessage());
+                Log.e("LoginActivity", t.getMessage());
+                return;
+            }
+        });
+
+        final RealmResults<MovilDevolucion> realmDevoluciones = realmQuerys.obtenerPiezasDevolucionNoSincronizadas(SessionPrefs.get(this).mPrefs.getString(SessionPrefs.PREF_USUARIO_LOGIN, "Sin Usuario"));
+        List<MovilDevolucion> devolucionList = realmDevoluciones;
+
+        Call<Respuesta> sincronizarDevoluciones = postalApi.guardarDevoluciones(devolucionList);
+        sincronizarDevoluciones.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+
+                if (!response.isSuccessful()) {
+                    String error;
+                    if (response.errorBody().contentType().subtype().equals("application/json") ||
+                            response.errorBody().contentType().subtype().equals("json")) {
+                        ApiError apiError = ApiError.fromResponseBody(response.errorBody());
+                        error = apiError.getMessage();
+                        Log.d("MenuPrincipalActivity", apiError.getMessage());
+                    } else {
+                        error = response.message();
+                        Log.e("MenuPrincipalActivity", response.message());
+                    }
+                    showMenuError(error);
+                    return;
+                } else {
+                    Respuesta respuesta = response.body();
+                    if (respuesta.getStatus() == ESTADO_CREACION_EXITOSA) {
+                        Realm realm = Realm.getDefaultInstance();
+                        realm.beginTransaction();
+                        realmDevoluciones.deleteAllFromRealm();
+                        realm.commitTransaction();
+                        realm.close();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+                showMenuError(t.getMessage());
+                Log.e("LoginActivity", t.getMessage());
+                return;
+            }
+        });
+        showProgress(false);
+        Toast.makeText(MenuPrincipalActivity.this, "Sincronizacion Finalizada Exitosamente", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showProgress(boolean show) {
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
     private void showMenuError(String error) {
         Toast.makeText(MenuPrincipalActivity.this, error, Toast.LENGTH_LONG).show();
@@ -135,6 +278,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         lblVersion = (TextView) findViewById(R.id.lblVersion);
         lblUsuario = (TextView) findViewById(R.id.lblUsuario);
         imgFondo = (ImageView) findViewById(R.id.imgFondo);
+        mProgressView = findViewById(R.id.menu_progress);
     }
 
     //Eventos
@@ -175,11 +319,13 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuPrincipalActivity.this, DevolucionActivity.class));
                 return true;
             case R.id.menu_item_sincronizar:
-
+                this.sincronizarCorrespondencia();
                 return true;
             case R.id.menu_item_salir:
                 SessionPrefs.get(MenuPrincipalActivity.this).logOut();
-                startActivity(new Intent(MenuPrincipalActivity.this, LoginActivity.class));
+                Intent intent = new Intent(MenuPrincipalActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

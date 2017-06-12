@@ -90,11 +90,9 @@ public class DespachoActivity extends AppCompatActivity{
 
                             movilDespacho.setPieza(pieza);
                             movilDespacho.setCodigoCartero(SessionPrefs.get(DespachoActivity.this).mPrefs.getString(SessionPrefs.PREF_USUARIO_LOGIN, "Sin Usuario"));
-                            movilDespacho.setCodRuta(SessionPrefs.get(DespachoActivity.this).mPrefs.getString(SessionPrefs.PREF_USUARIO_RUTA, "Sin Ruta"));
+                            movilDespacho.setRuta(SessionPrefs.get(DespachoActivity.this).mPrefs.getString(SessionPrefs.PREF_USUARIO_RUTA, "Sin Ruta"));
                             movilDespacho.setSincronizada(false);
-                            movilDespacho.setEscaneada(true);
                             movilDespacho.setFechaDespacho(new Date());
-                            movilDespacho.setFechaEscaneo(new Date());
 
                             realm.beginTransaction();
                             realm.copyToRealmOrUpdate(movilDespacho);

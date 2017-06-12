@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5"
-            android:text="@string/str_titulo_entrega"
+            android:text="@string/str_entrega_correspondencia"
             android:textAlignment="center"
             android:textSize="35sp" />
 

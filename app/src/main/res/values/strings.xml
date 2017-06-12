@@ -16,7 +16,6 @@
     <!--String para el menu principal-->
 
     <string name="str_auto_despacho" translatable="false">Auto Despacho</string>
-    <string name="str_cuadre_correpondencia" translatable="false">Cuadre de Correpondencia</string>
     <string name="str_entrega_correspondencia" translatable="false">Entrega de Correspondencia</string>
     <string name="str_devolucion" translatable="false">Devolucion Masiva</string>
     <string name="str_sincronizacion" translatable="false">Sincronizacion</string>
@@ -29,7 +28,7 @@
     <string name="str_titulo_despacho" translatable="false">Auto Despacho</string>
     <string name="str_titulo_entrega" translatable="false">Auto Despacho</string>
     <string name="str_total_piezas" translatable="false">Total Piezas Escaneadas:</string>
-    <string name="str_salir" translatable="false">Presione de nuevo para salir del auto despacho</string>
+    <string name="str_salir" translatable="false">Presione de nuevo para salir</string>
 
     <!--String para item lista despacho-->
     <string name="lbl_pieza" translatable="false">Pieza:</string>

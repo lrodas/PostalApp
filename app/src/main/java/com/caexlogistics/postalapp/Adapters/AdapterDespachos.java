@@ -70,11 +70,6 @@ public class AdapterDespachos extends RecyclerView.Adapter<AdapterDespachos.View
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             lblItemPiezaDespacho.setText(movilDespachos.getPieza());
             lblItemFechaDespacho.setText(format.format(movilDespachos.getFechaDespacho()));
-            lblItemTipoDespacho.setText(movilDespachos.getTipo());
-            lblItemCicloDespacho.setText(movilDespachos.getCiclo());
-            lblItemAgenciaDespacho.setText(movilDespachos.getCodigoAgencia());
-            lblItemNombreDespacho.setText(movilDespachos.getNombre());
-            lblItemDireccionDespacho.setText(movilDespachos.getDireccion());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

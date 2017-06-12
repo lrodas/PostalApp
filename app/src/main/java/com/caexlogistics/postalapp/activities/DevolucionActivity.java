@@ -87,11 +87,7 @@ public class DevolucionActivity extends AppCompatActivity {
                     if (!pieza.trim().equals("") && !pieza.trim().equals("<br />")) {
                         MovilDevolucion movilDevolucion = realmQuerys.actualizarDevolucion(pieza, SessionPrefs.get(DevolucionActivity.this).mPrefs.getString(SessionPrefs.PREF_USUARIO_LOGIN, "Sin Usuario"));
                         if (movilDevolucion == null) {
-                            Calendar c = Calendar.getInstance();
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            String fecha_actual = df.format(c.getTime());
                             Realm realm = Realm.getDefaultInstance();
-
                             movilDevolucion = new MovilDevolucion();
 
                             movilDevolucion.setPieza(pieza);

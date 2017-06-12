@@ -1,9 +1,11 @@
 package com.caexlogistics.postalapp.AsincTasks;
 
 import com.caexlogistics.postalapp.Models.Credenciales;
+import com.caexlogistics.postalapp.Models.MovilDespachos;
 import com.caexlogistics.postalapp.Models.MovilDevolucion;
 import com.caexlogistics.postalapp.Models.MovilEntrega;
 import com.caexlogistics.postalapp.Models.MovilTipoDevolucion;
+import com.caexlogistics.postalapp.Models.Respuesta;
 import com.caexlogistics.postalapp.Models.Usuario;
 
 import java.util.List;
@@ -22,27 +24,26 @@ import retrofit2.http.PUT;
 
 public interface PostalApi {
 
-    public static final String BASE_URL = "http://192.168.1.2/v1/";
+    public static final String BASE_URL = "http://192.168.43.11/v1/";
     //public static final String BASE_URL = "http://127.0.0.1:8080/V1/";
 
     @Headers("Content-Type: application/json")
     @POST("usuarios/login/")
     Call<Usuario> login(@Body Credenciales credenciales);
-    //Call<Usuario> login(@Field("login") String login, @Field("password") String password);
 
     @Headers("Content-Type: Application/json")
     @GET("tipoDevolucion/obtenerTipoDevolucion")
     Call<List<MovilTipoDevolucion>> obtenerTipoDevolucion();
 
     @Headers("Content-Type: Application/json")
-    @PUT("entregas/save")
-    Call<Boolean> guardarEntregas(@Body List<MovilEntrega> movilEntregaList);
+    @PUT("entrega/registrar")
+    Call<Respuesta> guardarEntregas(@Body List<MovilEntrega> movilEntregaList);
 
     @Headers("Content-Type: Application/json")
-    @PUT("despachos/save")
-    Call<Boolean> guardarDespachos(@Body List<MovilDevolucion> movilDevolucionList);
+    @PUT("despacho/registrar")
+    Call<Respuesta> guardarDespachos(@Body List<MovilDespachos> movilDespachosList);
 
     @Headers("Content-Type: Application/json")
-    @PUT("devoluciones/save")
-    Call<Boolean> guardarDevoluciones(@Body List<MovilDevolucion> movilDevolucionList);
+    @PUT("devolucion/registrar")
+    Call<Respuesta> guardarDevoluciones(@Body List<MovilDevolucion> movilDevolucionList);
 }
